@@ -65,7 +65,7 @@ const Book = () => {
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {book?.title}
           </h5>
-          <p>
+          <p className="text-justify">
             Random book description, Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Necessitatibus soluta explicabo earum accusamus
             quod nihil eius numquam et culpa animi, officiis aliquid, hic
