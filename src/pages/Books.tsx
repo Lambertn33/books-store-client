@@ -1,6 +1,10 @@
+import BooksList from "@/components/books/BooksList"
+
 const Books = () => {
   return (
-    <div>Books</div>
+    <div>
+      <BooksList />
+    </div>
   )
 }
 
