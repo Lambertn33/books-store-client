@@ -25,9 +25,7 @@ const BookDetails: FC<BookDetailsProps> = ({ book }) => {
       </h5>
       <p className="text-justify">
         Random book description, Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Necessitatibus soluta explicabo earum accusamus quod
-        nihil eius numquam et culpa animi, officiis aliquid, hic nesciunt
-        aspernatur non ab maiores impedit ducimus!
+        adipisicing elit. Necessita
       </p>
       <div className="flex gap-4">
         <TheIcon

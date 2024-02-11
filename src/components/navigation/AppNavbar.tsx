@@ -5,13 +5,13 @@ import {
   NavbarToggle,
 } from "flowbite-react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const AppNavbar = () => {
   return (
     <Navbar fluid rounded className="bg-gray-100 py-2">
       <div className="flex md:order-2">
-        <Button>Authenticate</Button>
+        <Button as={Link} to="/auth">Authenticate</Button>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
