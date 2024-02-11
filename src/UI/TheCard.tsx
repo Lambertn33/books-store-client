@@ -3,16 +3,24 @@ import { Card } from "flowbite-react";
 interface TheCardProps {
   image?: string;
   children: React.ReactNode;
+  isHorizontal: boolean;
+  cardClasses?: string;
 }
 
-const TheCard = ({ children, image }: TheCardProps) => {
+const TheCard = ({
+  children,
+  image,
+  isHorizontal,
+  cardClasses,
+}: TheCardProps) => {
   return (
     <Card
-      horizontal
-      className="max-w-sm"
+      horizontal={isHorizontal}
+      className={cardClasses ?? "max-w-sm"}
       imgAlt="Meaningful alt text for an image that is not purely decorative"
-      imgSrc={image ? image : undefined}
+      imgSrc={isHorizontal ? image : undefined}
     >
+      {!isHorizontal && <img src={image} alt="" className="w-full h-[300px]" />}
       {children}
     </Card>
   );
