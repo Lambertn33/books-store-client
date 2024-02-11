@@ -2,9 +2,10 @@ import {
   Button,
   Navbar,
   NavbarCollapse,
-  NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
+
+import { NavLink } from "react-router-dom";
 
 const AppNavbar = () => {
   return (
@@ -14,10 +15,10 @@ const AppNavbar = () => {
         <NavbarToggle />
       </div>
       <NavbarCollapse>
-        <NavbarLink href="#" active>
+        <NavLink to="/">
           Home
-        </NavbarLink>
-        <NavbarLink href="#">About</NavbarLink>
+        </NavLink>
+        <NavLink to="/books">Books Store</NavLink>
       </NavbarCollapse>
     </Navbar>
   );

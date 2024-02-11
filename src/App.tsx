@@ -1,12 +1,8 @@
-import AppNavbar from "./components/AppNavbar"
-import AppSearchBar from "./components/AppSearchBar/AppSearchBar"
+import Routing from "./routing"
 
 const App = () => {
   return (
-    <div>
-      <AppSearchBar />
-      <AppNavbar/>
-    </div>
+    <Routing />
   )
 }
 
