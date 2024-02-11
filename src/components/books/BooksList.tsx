@@ -1,13 +1,26 @@
-import BookDetails from "./BookDetails"
+import { FC } from "react";
 
-const BooksList = () => {
-  return (
-    <div className="grid grid-cols xl:grid-cols-3 gap-x-12 gap-y-6 justify-center xl:justify-normal">
-        <BookDetails />
-        <BookDetails />
-        <BookDetails />
-    </div>
-  )
+import BookDetails from "./BookDetails";
+
+interface bookInterface {
+  id: number;
+  cover_image: string;
+  title: string;
+  price: number;
 }
 
-export default BooksList
+interface booksListProps {
+  books: bookInterface[];
+}
+
+const BooksList: FC<booksListProps> = ({ books }) => {
+  return (
+    <div className="grid grid-cols xl:grid-cols-3 gap-x-12 gap-y-6 justify-center xl:justify-normal">
+      {books.map((book) => (
+        <BookDetails book={book} />
+      ))}
+    </div>
+  );
+};
+
+export default BooksList;
