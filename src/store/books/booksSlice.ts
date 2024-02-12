@@ -43,7 +43,6 @@ const booksSlice = createSlice({
       state.filteredBooks = state.books.filter((book) => {
         return book.title.toLowerCase().includes(title.toLowerCase());
       });
-      console.log(state.filteredBooks);
     },
   },
   extraReducers: (builder) => {

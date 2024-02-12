@@ -13,7 +13,7 @@ import BooksList from "@/components/books/BooksList";
 const Books = () => {
   const dispatch = useAppDispatch();
 
-  const { books, error, status, filteredBooks, isFiltering } = useAppSelector(
+  const { books, status, filteredBooks, isFiltering } = useAppSelector(
     (state: RootState) => state.books
   );
 
@@ -23,9 +23,7 @@ const Books = () => {
     };
 
     fetchData();
-  }, [dispatch]);
-
-  if (error) return <p>Error</p>;
+  }, [dispatch]); 
 
   if (status === "idle" || status === "loading")
     return (

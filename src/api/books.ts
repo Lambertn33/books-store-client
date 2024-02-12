@@ -15,11 +15,11 @@ interface bookMoreDetailsInterface extends bookInterface {
 }
 
 export const getAllBooks = async () => {
-  const response = await axios.get(`${backendUrl}/books`);
+  const response = await axios.get(`${backendUrl}books`);
   return (await response.data) as bookInterface[];
 };
 
 export const getSingleBook = async (bookId: string) => {
-  const response = await axios.get(`${backendUrl}/books/${bookId}`);
+  const response = await axios.get(`${backendUrl}books/${bookId}`);
   return (await response.data.book) as bookMoreDetailsInterface;
 };
