@@ -6,6 +6,8 @@ import booksReducer from "./books/booksSlice";
 
 import bookReducer from "./books/bookSlice";
 
+import authReducer from "./auth/authSlice";
+
 import { persistStore, persistReducer } from "redux-persist";
 
 import storage from "redux-persist/lib/storage";
@@ -19,7 +21,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   books: booksReducer,
-  book: bookReducer
+  book: bookReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(

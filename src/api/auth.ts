@@ -12,6 +12,6 @@ export const register = async (inputs: authInputs) => {
   return await response.data;
 };
 export const login = async (inputs: authInputs) => {
-  const response = await axios.post(`${endpointUrl}/register`, inputs, {});
+  const response = await axios.post(`${endpointUrl}/login`, inputs, {});
   return await response.data;
 };

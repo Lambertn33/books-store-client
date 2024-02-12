@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from "react";
 
 import { Label, TextInput } from "flowbite-react";
 
-interface AppTextInputProps {
+interface TheInputProps {
   id?: string;
   label?: string;
   value?: string;
@@ -11,7 +11,7 @@ interface AppTextInputProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const AppTextInput: FC<AppTextInputProps> = ({
+export const TheTextInput: FC<TheInputProps> = ({
   id,
   label,
   value,
