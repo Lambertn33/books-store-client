@@ -1,0 +1,33 @@
+name: deployment
+on:
+  push:
+    branches:
+      - main
+env:
+  VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the codes
+        uses: actions/checkout@v4
+
+      - name: install the dependencies
+        run: npm install
+
+      - name: build the project
+        run: npm run build
+
+      - name: produce artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: download the artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
