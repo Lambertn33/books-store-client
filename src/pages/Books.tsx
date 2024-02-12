@@ -13,9 +13,9 @@ import BooksList from "@/components/books/BooksList";
 const Books = () => {
   const dispatch = useAppDispatch();
 
-  const { books, error, status } = useAppSelector(
+  const { books, error, status, filteredBooks, isFiltering } = useAppSelector(
     (state: RootState) => state.books
-    );
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +36,7 @@ const Books = () => {
 
   return (
     <div>
-      <BooksList books={books} />
+      <BooksList books={isFiltering ? filteredBooks : books} />
     </div>
   );
 };

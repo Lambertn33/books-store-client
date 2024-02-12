@@ -13,6 +13,12 @@ interface BooksSliceInterface {
   books: bookInterface[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  filteredBooks: bookInterface[];
+  isFiltering: boolean;
+}
+
+interface Filters {
+  title: string;
 }
 
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
@@ -25,10 +31,21 @@ const booksSlice = createSlice({
   initialState: {
     books: [],
     error: null,
+    isFiltering: false,
+    filteredBooks: [],
     status: "idle",
   } as BooksSliceInterface,
 
-  reducers: {},
+  reducers: {
+    filterBooks: (state, action: PayloadAction<Filters>) => {
+      const { title } = action.payload;
+      state.isFiltering = true;
+      state.filteredBooks = state.books.filter((book) => {
+        return book.title.toLowerCase().includes(title.toLowerCase());
+      });
+      console.log(state.filteredBooks);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBooks.pending, (state) => {
