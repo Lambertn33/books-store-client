@@ -15,7 +15,7 @@ const Books = () => {
 
   const { books, error, status } = useAppSelector(
     (state: RootState) => state.books
-  );
+    );
 
   useEffect(() => {
     const fetchData = async () => {

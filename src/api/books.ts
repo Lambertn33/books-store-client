@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpointUrl = "http://localhost:4000/api/books";
+import { backendUrl } from "@/helpers/url";
 
 interface bookInterface {
   id: number;
@@ -15,11 +15,11 @@ interface bookMoreDetailsInterface extends bookInterface {
 }
 
 export const getAllBooks = async () => {
-  const response = await axios.get(`${endpointUrl}`);
+  const response = await axios.get(`${backendUrl}/books`);
   return (await response.data) as bookInterface[];
 };
 
 export const getSingleBook = async (bookId: string) => {
-  const response = await axios.get(`${endpointUrl}/${bookId}`);
+  const response = await axios.get(`${backendUrl}/books/${bookId}`);
   return (await response.data.book) as bookMoreDetailsInterface;
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpointUrl = "http://localhost:4000/api/auth";
+import { backendUrl } from "@/helpers/url";
 
 interface authInputs {
   username: string;
@@ -8,10 +8,11 @@ interface authInputs {
 }
 
 export const register = async (inputs: authInputs) => {
-  const response = await axios.post(`${endpointUrl}/register`, inputs, {});
+  const response = await axios.post(`${backendUrl}/auth/register`, inputs, {});
   return await response.data;
 };
+
 export const login = async (inputs: authInputs) => {
-  const response = await axios.post(`${endpointUrl}/login`, inputs, {});
+  const response = await axios.post(`${backendUrl}/auth/login`, inputs, {});
   return await response.data;
 };
