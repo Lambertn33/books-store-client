@@ -25,5 +25,6 @@ export const logout = async () => {
     },
   };
   const response = await axios.post(`${backendUrl}auth/logout`, {}, config);
+  localStorage.removeItem("token");
   return response.data;
 };

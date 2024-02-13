@@ -15,9 +15,10 @@ interface orderInterface {
   amount: number;
   status: "ORDERED" | "CANCELED";
   userId: number;
+  createdAt: string;
 }
 
-export const getMyOrders = async () => {
-  const response = await axios.get(`${backendUrl}orders`, config);
+export const getMyOrders = async (userId: number) => {
+  const response = await axios.get(`${backendUrl}orders/${userId}`, config);
   return (await response.data) as orderInterface[];
 };
