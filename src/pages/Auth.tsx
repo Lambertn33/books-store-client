@@ -66,7 +66,7 @@ const Auth = () => {
           response = await login(authInputs);
         }
       }
-
+      localStorage.setItem("token", response.token);
       const authObject = jwtDecode(response.token) as MyJWTPayload;
       dispatch(authActions.setUser(authObject.authUser));
       history.replace("/books");

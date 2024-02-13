@@ -16,3 +16,14 @@ export const login = async (inputs: authInputs) => {
   const response = await axios.post(`${backendUrl}auth/login`, inputs, {});
   return await response.data;
 };
+
+export const logout = async () => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.post(`${backendUrl}auth/logout`, {}, config);
+  return response.data;
+};
