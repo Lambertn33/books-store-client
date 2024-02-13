@@ -17,7 +17,7 @@ const TheCard = ({
     <Card
       horizontal={isHorizontal}
       className={cardClasses ?? "max-w-sm"}
-      imgAlt="Meaningful alt text for an image that is not purely decorative"
+      imgAlt=""
       imgSrc={isHorizontal ? image : undefined}
     >
       {!isHorizontal && <img src={image} alt="" className="w-full h-[300px]" />}
