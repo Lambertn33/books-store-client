@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Auth, Book, Books, Home, Orders } from "@/pages";
+import { Auth, Book, Books, Home, Orders, NotFound } from "@/pages";
 
 import { PrivateRoute } from "@/components/PrivateRoute";
 
@@ -26,6 +26,9 @@ export default function Routing() {
           </Route>
           <Route path="/books">
             <Books />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </div>

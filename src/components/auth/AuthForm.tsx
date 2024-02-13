@@ -40,7 +40,13 @@ const AuthForm: FC<AuthFormProps> = ({
     }));
   };
 
-  const toggleMode = () => setIsLoginMode(!isLoginMode);
+  const toggleMode = () => {
+    setIsLoginMode(!isLoginMode);
+    setUserInputs({
+      username: "",
+      password: "",
+    });
+  };
 
   const hasError = error.trim().length > 0;
 
