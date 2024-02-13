@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+
 import { getSingleBook } from "@/api/books";
 
 interface BookInterface {
@@ -17,7 +18,7 @@ interface SingleBookSliceInterface {
 }
 
 export const fetchSingleBook = createAsyncThunk(
-  "book/fetchSingleBook",
+  "books/fetchSingleBook",
   async (bookId: string) => {
     const response = await getSingleBook(bookId);
     return response as BookInterface;
