@@ -44,6 +44,15 @@ export const makeOrder = async (userId: number, booksIds: number[]) => {
   return response;
 };
 
+export const cancelOrder = async (userId: number, orderId: number) => {
+  const response = await axios.put(
+    `${backendUrl}orders/${userId}/${orderId}`,
+    {},
+    config
+  );
+  return response;
+};
+
 export const getSingleOrder = async (userId: number, orderId: number) => {
   const response = await axios.get(
     `${backendUrl}orders/${userId}/${orderId}`,

@@ -15,6 +15,7 @@ interface OrderInterface {
 interface ordersListProps {
   orders: OrderInterface[];
   onFetchSingleOrder: (orderId: number) => Promise<void>;
+  onCancelOrder: (orderId: number, orderPoints: number) => Promise<void>;
 }
 
 const formatDate = (dateString: string) => {
@@ -22,7 +23,7 @@ const formatDate = (dateString: string) => {
   return date.toISOString().split("T")[0];
 };
 
-const OrdersList: FC<ordersListProps> = ({ orders, onFetchSingleOrder }) => {
+const OrdersList: FC<ordersListProps> = ({ orders, onFetchSingleOrder, onCancelOrder }) => {
   return (
     <Table>
       <Table.Head>
@@ -35,7 +36,7 @@ const OrdersList: FC<ordersListProps> = ({ orders, onFetchSingleOrder }) => {
       </Table.Head>
       <Table.Body className="divide-y">
         {orders.map((order) => (
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={order.id}>
             <Table.Cell>
               <span className="font-extrabold text-black">
                 {formatDate(order.createdAt)}
@@ -56,7 +57,7 @@ const OrdersList: FC<ordersListProps> = ({ orders, onFetchSingleOrder }) => {
                   More
                 </span>
                 {order.status === "ORDERED" && (
-                  <span className="font-medium text-red-600 bg-red-200 py-2 px-3 rounded-md cursor-pointer">
+                  <span onClick={() => onCancelOrder(order.id, order.amount)} className="font-medium text-red-600 bg-red-200 py-2 px-3 rounded-md cursor-pointer">
                     Cancel Order
                   </span>
                 )}

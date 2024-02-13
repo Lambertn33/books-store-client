@@ -52,7 +52,6 @@ const AppNavbar = () => {
                 {user?.points} points
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>My Profile</Dropdown.Item>
             <Dropdown.Item as={Link} to={"/orders"}>
               My Orders
             </Dropdown.Item>

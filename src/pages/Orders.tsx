@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 
-import { getMyOrders, getSingleOrder } from "@/api/orders";
+import { getMyOrders, getSingleOrder, cancelOrder } from "@/api/orders";
 
-import { useAppSelector } from "@/store/store";
+import { useAppSelector, useAppDispatch } from "@/store/store";
+
+import { authActions } from "@/store/auth/authSlice";
 
 import OrdersList from "@/components/orders/OrdersList";
 
 import { TheSpinner } from "@/UI";
+
 import { Modal, Table } from "flowbite-react";
 
 interface orderInterface {
@@ -30,6 +33,8 @@ interface orderBooksInterface extends orderInterface {
 }
 
 const Orders = () => {
+  const dispatch = useAppDispatch();
+
   const [orders, setOrders] = useState<orderInterface[]>([]);
 
   const [isFetchingAllOrders, setIsFetchingAllOrders] = useState(true);
@@ -60,10 +65,22 @@ const Orders = () => {
     setOpenModal(true);
   };
 
+  const cancelOrderHandler = async (orderId: number, orderPoints: number) => {
+    const response = await cancelOrder(user!.id, orderId);
+    if (response.status === 200) {
+      dispatch(
+        authActions.updateUserPoints({
+          points: orderPoints,
+          type: "ORDERCANCELED",
+        })
+      );
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
       <div className="mb-4 flex justify-center">
-        <span className="text-2xl font-bold">My Orders</span>
+        <span className="text-2xl font-bold">My Orders History</span>
       </div>
       {isFetchingAllOrders ? (
         <div className="flex justify-center">
@@ -72,6 +89,7 @@ const Orders = () => {
       ) : orders.length > 0 ? (
         <OrdersList
           orders={orders}
+          onCancelOrder={cancelOrderHandler}
           onFetchSingleOrder={fetchSingleOrderHandler}
         />
       ) : (
@@ -112,7 +130,9 @@ const Orders = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <span className="font-bold text-xl">Total: {fetchedOrder?.amount} points</span>
+          <span className="font-bold text-xl">
+            Total: {fetchedOrder?.amount} points
+          </span>
         </Modal.Footer>
       </Modal>
     </div>
