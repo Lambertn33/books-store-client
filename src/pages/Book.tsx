@@ -13,6 +13,8 @@ import { RootState } from "@/store/store";
 import { TheCard, TheIcon, TheSpinner, TheBadge } from "@/UI";
 
 import { useParams } from "react-router-dom";
+import { Button } from "flowbite-react";
+import { cartActions } from "@/store/cart/cartSlice";
 
 interface Params {
   bookId: string;
@@ -23,9 +25,19 @@ const Book = () => {
 
   const dispatch = useAppDispatch();
 
+  const { items } = useAppSelector((state: RootState) => state.cart);
+
+  const isBookAlreadyInCart = items.some(
+    (item) => item.id === parseInt(bookId)
+  );
+
   const { book, error, status } = useAppSelector(
     (state: RootState) => state.book
   );
+
+  const addBookToCart = () => {
+    dispatch(cartActions.addBookToCart(book!));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,12 +110,9 @@ const Book = () => {
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
               ${book?.price}
             </span>
-            <a
-              href="#"
-              className="rounded-lg bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-            >
-              Add to cart
-            </a>
+            <Button disabled={isBookAlreadyInCart} onClick={addBookToCart}>
+              {isBookAlreadyInCart ? "Book already in cart" : "Add to cart"}
+            </Button>
           </div>
         </TheCard>
       </div>
