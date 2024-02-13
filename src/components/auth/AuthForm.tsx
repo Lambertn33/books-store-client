@@ -56,10 +56,10 @@ const AuthForm: FC<AuthFormProps> = ({
 
   return (
     <div>
-      <Card className="max-w-sm">
+      <Card className="max-w-md">
         <form
           onSubmit={submitForm}
-          className="flex max-w-full sm:max-w-full md:max-w-[100%] mx-auto flex-col gap-4 bg-gray-200 p-8 rounded-md"
+          className="flex min-w-full sm:max-w-full md:max-w-[100%] mx-auto flex-col gap-4 p-8 rounded-md"
         >
           {hasError && (
             <TheAlert
