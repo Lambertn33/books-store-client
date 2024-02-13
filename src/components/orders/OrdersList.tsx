@@ -14,6 +14,7 @@ interface OrderInterface {
 
 interface ordersListProps {
   orders: OrderInterface[];
+  onFetchSingleOrder: (orderId: number) => Promise<void>;
 }
 
 const formatDate = (dateString: string) => {
@@ -21,7 +22,7 @@ const formatDate = (dateString: string) => {
   return date.toISOString().split("T")[0];
 };
 
-const OrdersList: FC<ordersListProps> = ({ orders }) => {
+const OrdersList: FC<ordersListProps> = ({ orders, onFetchSingleOrder }) => {
   return (
     <Table>
       <Table.Head>
@@ -51,7 +52,7 @@ const OrdersList: FC<ordersListProps> = ({ orders }) => {
             </Table.Cell>
             <Table.Cell>
               <div className="flex gap-2">
-                <span className="font-medium text-green-600 bg-green-200 py-2 px-3 rounded-md cursor-pointer">
+                <span onClick={() => onFetchSingleOrder(order.id)} className="font-medium text-green-600 bg-green-200 py-2 px-3 rounded-md cursor-pointer">
                   More
                 </span>
                 {order.status === "ORDERED" && (
