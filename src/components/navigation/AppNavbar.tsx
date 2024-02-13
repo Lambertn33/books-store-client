@@ -53,7 +53,9 @@ const AppNavbar = () => {
               </span>
             </Dropdown.Header>
             <Dropdown.Item>My Profile</Dropdown.Item>
-            <Dropdown.Item>My Orders</Dropdown.Item>
+            <Dropdown.Item as={Link} to={"/orders"}>
+              My Orders
+            </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={logoutHandler}>Sign out</Dropdown.Item>
           </Dropdown>
