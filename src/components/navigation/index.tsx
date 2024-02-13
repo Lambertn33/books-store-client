@@ -1,17 +1,46 @@
 import { useState } from "react";
 
+import { IoMdClose } from "react-icons/io";
+
+import { useHistory } from "react-router-dom";
+
 import { Button, Modal, Table } from "flowbite-react";
 
 import { useAppDispatch, useAppSelector, RootState } from "@/store/store";
 
 import { cartActions } from "@/store/cart/cartSlice";
 
+import { authActions } from "@/store/auth/authSlice";
+
+import { makeOrder } from "@/api/orders";
+
 import AppNavbar from "./AppNavbar";
 
 import AppSearchBar from "./AppSearchBar/AppSearchBar";
+import { TheIcon } from "@/UI";
+
+interface orderInterface {
+  id: number;
+  amount: number;
+  status: "ORDERED" | "CANCELED";
+  userId: number;
+  createdAt: string;
+}
+
+interface ErrorResponse {
+  response: {
+    data: {
+      error: string;
+    };
+  };
+}
 
 const Navigation = () => {
+  const history = useHistory();
+
   const [openModal, setOpenModal] = useState(false);
+
+  const [makeOrderError, setMakeOrderError] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -23,6 +52,38 @@ const Navigation = () => {
     dispatch(cartActions.removeBookFromCart(id));
 
   const { items } = useAppSelector((state: RootState) => state.cart);
+
+  const { isAuthenticated, user } = useAppSelector(
+    (state: RootState) => state.auth
+  );
+
+  const makeOrderHandler = async () => {
+    try {
+      const booksIds = items.map((item) => item.id);
+
+      const { data, status } = await makeOrder(user!.id, booksIds);
+
+      if (status === 200) {
+        setOpenModal(false);
+
+        const newOrder = data.order as orderInterface;
+
+        dispatch(
+          authActions.updateUserPoints({
+            points: newOrder.amount,
+            type: "ORDERMAKE",
+          })
+        );
+
+        dispatch(cartActions.clearCart());
+
+        history.replace("/orders");
+      }
+    } catch (error) {
+      const errorResponse = error as ErrorResponse;
+      setMakeOrderError(errorResponse.response.data.error);
+    }
+  };
 
   return (
     <>
@@ -37,6 +98,14 @@ const Navigation = () => {
         <Modal.Header>My Cart</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
+            {makeOrderError && (
+              <div className="flex justify-center items-center gap-2">
+                <span className="text-red-600 font-semibold">
+                  {makeOrderError}
+                </span>
+                <TheIcon className="cursor-pointer" onClick={() => setMakeOrderError("")} icon={<IoMdClose color="red" size={20}/>} />
+              </div>
+            )}
             {items.length ? (
               <div className="overflow-x-auto">
                 <Table>
@@ -78,7 +147,9 @@ const Navigation = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button>Make Order</Button>
+          <Button disabled={!isAuthenticated} onClick={makeOrderHandler}>
+            {isAuthenticated ? "Make Order" : "Login to make order"}
+          </Button>
           <Button
             disabled={items.length === 0}
             color="failure"

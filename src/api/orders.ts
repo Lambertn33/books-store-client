@@ -35,6 +35,15 @@ export const getMyOrders = async (userId: number) => {
   return (await response.data) as orderInterface[];
 };
 
+export const makeOrder = async (userId: number, booksIds: number[]) => {
+  const response = await axios.post(
+    `${backendUrl}orders/${userId}`,
+    { booksIds },
+    config
+  );
+  return response;
+};
+
 export const getSingleOrder = async (userId: number, orderId: number) => {
   const response = await axios.get(
     `${backendUrl}orders/${userId}/${orderId}`,

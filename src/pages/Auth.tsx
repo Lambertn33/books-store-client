@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react";
 
-import { useHistory } from "react-router-dom";
-
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { useAppDispatch } from "@/store/store";
@@ -38,7 +36,6 @@ interface ErrorResponse {
 
 const Auth = () => {
   const dispatch = useAppDispatch();
-  const history = useHistory();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string>("");
@@ -69,7 +66,7 @@ const Auth = () => {
       localStorage.setItem("token", response.token);
       const authObject = jwtDecode(response.token) as MyJWTPayload;
       dispatch(authActions.setUser(authObject.authUser));
-      history.replace("/books");
+      window.location.href = "/books";
     } catch (error) {
       const errorResponse = error as ErrorResponse;
       setError(errorResponse.response.data.error);

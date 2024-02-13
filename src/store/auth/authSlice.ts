@@ -28,6 +28,17 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+
+    updateUserPoints(
+      state,
+      action: PayloadAction<{ type: string; points: number }>
+    ) {
+      const { points, type } = action.payload;
+      state.user!.points =
+        type === "ORDERMAKE"
+          ? state.user!.points - points
+          : state.user!.points + points;
+    },
   },
 });
 
